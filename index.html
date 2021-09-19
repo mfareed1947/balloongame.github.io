@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <link rel="stylesheet" href="./styling/style.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <div id="login_box">
+        <h1>Login</h1>
+        <input type="email" id="email"  placeholder="email"/>
+        <br>
+        <input type="password" id="password"  placeholder="password"/>
+        <br>
+        <button onclick="login()" class="btn btn-primary">Login</button>
+        <button onclick="signup()" class="btn btn-primary">Signup</button>
+    </div>
+    <div id="welcome_box">
+       <b>Welcome User:</b> <span id="user"></span>
+        <div>
+            <button onclick="logout()" class="btn btn-danger">Logout</button>
+        </div>
+        <div class="wrapper">
+            <h1>Pop the balloons by moving</br>your mouse over them YELLOW COLOR</h1>
+            <div id="yay-no-balloons"><span class="blue">Wow!</span> You clear level one!</div>
+            <div id="balloon-gallery">
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div  class="blast"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div  class="blast"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+                <div class="blast"  ></div>
+                <div class="balloon" ></div>
+                <div class="balloon"></div>
+                <div class="balloon"></div>
+            </div>
+    
+        </div>
+    </div>
+<a href="./other page/level2.html"></a>
+
+    <script type="module">
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4SlJgQoS7hCW3fT3-wNanZXydSeyqmgM",
+            authDomain: "popupgame-dbe84.firebaseapp.com",
+            databaseURL: "https://popupgame-dbe84-default-rtdb.firebaseio.com",
+            projectId: "popupgame-dbe84",
+            storageBucket: "popupgame-dbe84.appspot.com",
+            messagingSenderId: "219320003593",
+            appId: "1:219320003593:web:aec97cb0ca9088355a5cd8",
+            measurementId: "G-0HSBYVFJWB"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log(user);
+                document.getElementById("user").innerHTML = user.email;
+                document.getElementById("login_box").style.display = "none";
+                document.getElementById("welcome_box").style.display = "block";
+            } else {
+                document.getElementById("login_box").style.display = "block";
+                document.getElementById("welcome_box").style.display = "none";
+            }
+        });
+    </script>
+    <script src="./index.js"></script>
+</body>
+
+</html>

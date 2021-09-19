@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>level 2</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body{
+    display: flex;
+    justify-content: center;
+    font-family:sans-serif;
+    padding: 30px;
+    background:#ededed;
+}
+
+
+.wrapper{
+    max-width: 690px;
+    margin: 0 auto;
+}
+
+.blue {
+    color:#3f7abe;
+}
+
+h1{
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #08a3d9;
+    text-transform: uppercase;
+    font-size: 30px;
+    color: #000380;
+}
+#balloon-gallery div{
+    background: #ff3300;
+    height: 121px;
+    width: 119px;
+    text-align: center;
+    color: #ff3300;
+    font-size: 40px;
+    font-family: sans-serif, arial;
+    border-radius: 100%;
+    margin-top: 20px;
+    display: inline-block;
+    /* float: left; */
+    margin: 2.5px 5 px 2.5px 0px;
+}
+
+#balloon-gallery div:nth-child(2n){
+    background: #ffce00;
+    color: #ffce00;
+}
+
+#balloon-gallery div:nth-child(5n){
+    background:#1d09ce;
+    color:#3713d4;
+}
+
+#balloon-gallery div:nth-child(6n){
+    background:#c92bc9;
+    color:#c427c4;
+}
+
+#balloon-gallery div:nth-child(13){
+    background:#1d09ce;
+    color:#3713d4
+}
+#balloon-gallery div:nth-child(10n){
+    background:#00ff55;
+    color: #32d83a;
+}
+
+#balloon-gallery div:nth-child(4n){
+    clear:right;
+}
+
+#yay-no-balloons {
+    display:none;
+    color:#ff3300;
+    font-size:100px;
+}
+    </style>
+</head>
+<body>
+    <div id="welcome_box">
+        <b>Welcome User:</b> <span id="user"></span>
+         <div>
+             <button onclick="logout()" class="btn btn-danger">Logout</button>
+         </div>
+         <div class="wrapper">
+             <h1>Pop the balloons by moving</br>your mouse over them BLUE COLOR</h1>
+             <div id="yay-no-balloons"><span class="blue">Wow!</span> You clear level one!</div>
+             <div id="balloon-gallery">
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div  class="blast"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div  class="blast"></div>
+                 <div class="balloon"></div>
+                 <div class="blast"  ></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+                 <div class="balloon" ></div>
+                 <div class="balloon"></div>
+                 <div class="balloon"></div>
+             </div>
+     
+         </div>
+     </div>
+ 
+     <script type="module">
+ 
+         const firebaseConfig = {
+             apiKey: "AIzaSyC4SlJgQoS7hCW3fT3-wNanZXydSeyqmgM",
+             authDomain: "popupgame-dbe84.firebaseapp.com",
+             databaseURL: "https://popupgame-dbe84-default-rtdb.firebaseio.com",
+             projectId: "popupgame-dbe84",
+             storageBucket: "popupgame-dbe84.appspot.com",
+             messagingSenderId: "219320003593",
+             appId: "1:219320003593:web:aec97cb0ca9088355a5cd8",
+             measurementId: "G-0HSBYVFJWB"
+         };
+ 
+         // Initialize Firebase
+         firebase.initializeApp(firebaseConfig);
+ 
+         firebase.auth().onAuthStateChanged((user) => {
+             if (user) {
+                 console.log(user);
+                 document.getElementById("user").innerHTML = user.email;
+                 document.getElementById("login_box").style.display = "none";
+                 document.getElementById("welcome_box").style.display = "block";
+             } else {
+                 document.getElementById("login_box").style.display = "block";
+                 document.getElementById("welcome_box").style.display = "none";
+             }
+         });
+
+
+         function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    console.log(email, password);
+
+
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log(user);
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage);
+            // ..
+        });
+}
+        
+         function logout() {
+    firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+    }).catch((error) => {
+        // An error happened.
+    });
+}
+
+function signup() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    console.log(email, password);
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in 
+            var user = userCredential.user;
+            // ...
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ..
+        });
+}
+
+
+let popup = 0;
+let fail  = 4;
+
+document.addEventListener('mouseover', function(e){
+    
+    if (e.target.className === "blast"){
+        
+                e.target.style.backgroundColor = "#ededed";
+                e.target.textContent = "BOM!";
+                popup++;
+                removeEvent(e);
+                checkAllPopped();
+    } else if(e.target.className === "balloon"){
+        e.target.style.backgroundColor = "#ededed";
+        e.target.textContent = "FAIL!";
+        fail--;
+        removeEvent(e);
+        checkAllPopped();
+    }  
+
+});
+
+function removeEvent(e){
+    e.target.removeEventListener('mouseover', function(){
+        
+    })
+};
+
+function checkAllPopped(){
+    if (popup ===4){
+        console.log('you clear this level!');
+        let gallery = document.querySelector('#balloon-gallery');
+        let message = document.querySelector('#yay-no-balloons');
+        gallery.innerHTML = '';
+        message.style.display = 'block';
+        let btn = document.createElement("button");
+        btn.style.height= "100px"
+        btn.style.backgroundColor="red"
+        btn.style.color="white"
+
+        btn.innerHTML = "Next Level";
+        document.body.appendChild(btn);
+        btn.addEventListener('click',()=>{
+        location.href="./other page/level2.html "
+        })
+        
+    }else if(fail==0){
+       alert("plese try again")
+       location.reload();
+    }
+};
+    
+     </script>
+</body>
+</html>
